@@ -29,3 +29,8 @@
       make:
         target: install
         chdir: "{{ lookup('ansible.builtin.env', 'HOME') }}/neovim"
+    - name: Install Chromium
+      become: true
+      community.general.snap:
+        name: chromium
+        state: present
