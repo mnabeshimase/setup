@@ -1,5 +1,5 @@
-apt update
-apt -y install pipx
+sudo apt update
+sudo apt -y install pipx
 pipx install --include-deps ansible
-export PATH="$PATH:/root/.local/bin/"
-
+pipx ensure
+ansible-playbook -K ./setup.yaml
