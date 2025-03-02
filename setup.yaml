@@ -25,6 +25,7 @@
         params:
           CMAKE_BUILD_TYPE: "RelWithDebInfo"
     - name: Install neovim
+      become: true
       make:
         target: install
         chdir: "{{ lookup('ansible.builtin.env', 'HOME') }}/neovim"
