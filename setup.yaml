@@ -1,0 +1,28 @@
+- hosts: localhost
+  tasks:
+    - name: Install dependencies
+      ansible.builtin.apt:
+        pkg:
+          - git
+          - ninja-build
+          - gettext
+          - cmake
+          - curl
+          - build-essential
+    - name: Install tmux
+      ansible.builtin.package:
+        name: tmux
+        state: present
+    - name: Checkout neovim
+      ansible.builtin.git:
+        repo: https://github.com/neovim/neovim.git
+        dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/neovim"
+    - name: Build neovim
+      make:
+        chdir: "{{ lookup('ansible.builtin.env', 'HOME') }}/neovim"
+        params:
+          CMAKE_BUILD_TYPE: "RelWithDebInfo"
+    - name: Install neovim
+      make:
+        target: install
+        chdir: "{{ lookup('ansible.builtin.env', 'HOME') }}/neovim"
